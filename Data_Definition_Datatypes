@@ -86,10 +86,24 @@ CREATE TABLE `users` (
 #Inserting records in the abovementioned table
 INSERT INTO `users` (`username`, `passworrd`) #Typo in `password` row -> should be `password` INSTEAD OF `passworRd`
 VALUES
-		('user1', 'user1pw'),
+	('user1', 'user1pw'),
         ('user2', 'user2pw'),
         ('user3', 'user3pw'),
-		('user4', 'user4pw'),
-		('user5', 'user5pw');
+	('user4', 'user4pw'),
+	('user5', 'user5pw');
 
+#Remove the current primary key and add another one which is a combination of 2 columns -> Composite primary key
+ALTER TABLE `users`
+DROP PRIMARY KEY,
+ADD PRIMARY KEY pk_users (`id`, `username`);
 
+#Make the default value of last_login_time field to be the current time
+ALTER TABLE `users`
+MODIFY `last_login_time` DATETIME DEFAULT NOW();
+
+#Set unique field
+ALTER TABLE `users`
+DROP PRIMARY KEY,
+ADD CONSTRAINT pk_users
+PRIMARY KEY `users` (`id`),
+MODIFY COLUMN `username` VARCHAR(30) UNIQUE
