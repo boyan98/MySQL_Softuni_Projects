@@ -1,0 +1,72 @@
+#creating DB
+CREATE DATABASE `minions`;
+
+#using the DB
+USE `minions`;
+
+#creating first DB table
+CREATE TABLE `minions` (
+	`id` INT PRIMARY KEY AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `age` INT
+);
+
+#creating DB table
+CREATE TABLE `towns` (
+	`town_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL
+);
+
+#altering a new column town_id in table `minions` and making it a foreign key
+ALTER TABLE `minions`
+ADD COLUMN `town_id` INT NOT NULL,
+ADD CONSTRAINT fk_townid  
+FOREIGN KEY (`town_id`)
+REFERENCES `towns`(`id`);
+
+#adding this property so we can set records to the newly created fk_townid FOREIGN_KEY
+SET FOREIGN_KEY_CHECKS = 0;
+
+#populating records in `minions` & `towns`
+INSERT INTO `minions`(`name`, `age`, `town_id`)
+VALUES
+	('Kevin', 22, 1),
+  ('Bob', 15, 3),
+  ('Steward', NULL, 2);
+    
+#removing the property as we've already added record in the foreign key.
+SET FOREIGN_KEY_CHECKS = 1;    
+
+INSERT INTO `towns`(`name`)
+VALUES
+	('Sofia'),
+  ('Plovdiv'),
+  ('Varna');
+    
+#deleting all recorods from minions table usin SQL query - TRUNCATE
+TRUNCATE `minions`;
+
+#dropping both tables from `minions` db using SQL query - DROP TABLE
+DROP TABLE 
+`minions`,
+`towns`;
+
+--------------------------------------------------------------------------
+
+#creating db `people`
+CREATE DATABASE `people`;
+
+#Using the newly created db
+USE `people`;
+
+#creating table `people`
+CREATE TABLE `people` (
+	  `id` INT UNIQUE AUTO_INCREMENT,
+    `name` VARCHAR(200) NOT NULL,
+    `picture` BLOB,
+    `height` DOUBLE(10, 2), #DOUBLE(10,2) means that there will be 10 total symbos 2 of which can be placed after the decimal, ex: 123456.78
+    `weight` DOUBLE(10, 2),
+    `gender` CHAR(1) NOT NULL, #CHAR(1) only 1 character is allowed for example 'm'/'f'
+    `birthdate` DATE NOT NULL,
+    `biography` TEXT
+);
