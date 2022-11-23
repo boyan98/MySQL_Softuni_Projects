@@ -6,14 +6,14 @@ USE `minions`;
 
 #creating first DB table
 CREATE TABLE `minions` (
-	`id` INT PRIMARY KEY AUTO_INCREMENT,
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `age` INT
 );
 
 #creating DB table
 CREATE TABLE `towns` (
-	`town_id` INT PRIMARY KEY AUTO_INCREMENT,
+  `town_id` INT PRIMARY KEY AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL
 );
 
@@ -30,7 +30,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 #populating records in `minions` & `towns`
 INSERT INTO `minions`(`name`, `age`, `town_id`)
 VALUES
-	('Kevin', 22, 1),
+  ('Kevin', 22, 1),
   ('Bob', 15, 3),
   ('Steward', NULL, 2);
     
@@ -39,7 +39,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO `towns`(`name`)
 VALUES
-	('Sofia'),
+  ('Sofia'),
   ('Plovdiv'),
   ('Varna');
     
@@ -61,7 +61,7 @@ USE `people`;
 
 #creating table `people`
 CREATE TABLE `people` (
-	  `id` INT UNIQUE AUTO_INCREMENT,
+    `id` INT UNIQUE AUTO_INCREMENT,
     `name` VARCHAR(200) NOT NULL,
     `picture` BLOB,
     `height` DOUBLE(10, 2), #DOUBLE(10,2) means that there will be 10 total symbos 2 of which can be placed after the decimal, ex: 123456.78
@@ -70,3 +70,26 @@ CREATE TABLE `people` (
     `birthdate` DATE NOT NULL,
     `biography` TEXT
 );
+
+   
+    
+#Creating table    
+CREATE TABLE `users` (
+	`id` INT UNIQUE AUTO_INCREMENT PRIMARY KEY,
+    `username` VARCHAR(30) UNIQUE NOT NULL,
+    `passworrd` VARCHAR(26) NOT NULL,
+    `profile_picture` BLOB,
+    `last_login_time` DATETIME,
+    `is_deleted` BOOL
+);
+
+#Inserting records in the abovementioned table
+INSERT INTO `users` (`username`, `passworrd`) #Typo in `password` row -> should be `password` INSTEAD OF `passworRd`
+VALUES
+		('user1', 'user1pw'),
+        ('user2', 'user2pw'),
+        ('user3', 'user3pw'),
+		('user4', 'user4pw'),
+		('user5', 'user5pw');
+
+
