@@ -1,0 +1,50 @@
+ -- 1. Records Count;
+ USE `gringotts`;
+ 
+ Import the database and send the total count of records to Mr. Bodrog. Make sure nothing got lost.
+ 
+ SELECT COUNT(`id`) as 'count' FROM `wizzard_deposits`;
+ 
+ 
+ -- The MAX() function returns the largest value of the selected column.
+ SELECT max(`magic_wand_size`) AS 'longest_magic_wand' FROM `wizzard_deposits`
+ ORDER BY `magic_wand_size` DESC;
+ 
+ -- The GROUP BY statement is often used with aggregate functions (COUNT(), MAX(), MIN(), SUM(), AVG()) to group the result-set by one or more columns.
+ SELECT `deposit_group`, max(`magic_wand_size`) AS 'longest_magic_wand' FROM `wizzard_deposits`
+ GROUP BY `deposit_group`
+ ORDER BY `longest_magic_wand`, `deposit_group`;
+ 
+-- The AVG() function returns the average value of the selected column.
+SELECT `deposit_group`
+FROM `wizzard_deposits`
+GROUP BY `deposit_group`
+ORDER BY avg(`magic_wand_size`)
+LIMIT 1;
+
+SELECT `deposit_group`, sum(`deposit_amount`) as 'total_sum'
+FROM `wizzard_deposits`
+GROUP BY `deposit_group`
+ORDER BY `total_sum` ASC;
+
+
+
+-- `magic_wand_creator` = 'Ollivander family'
+SELECT `deposit_group`, sum(`deposit_amount`) as 'total_sum'
+FROM `wizzard_deposits`
+WHERE `magic_wand_creator` = 'Ollivander family'
+GROUP BY `deposit_group`
+ORDER BY `deposit_group` ASC;
+
+-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.
+SELECT `deposit_group`, sum(`deposit_amount`) as 'total_sum'
+FROM `wizzard_deposits`
+WHERE `magic_wand_creator` = 'Ollivander family'
+GROUP BY `deposit_group`
+HAVING `total_sum` < 150000
+ORDER BY `total_sum` DESC;
+
+SELECT `deposit_group`, `magic_wand_creator`, min(`deposit_charge`) as 'min_deposit_charge'
+FROM `wizzard_deposits`
+GROUP BY `deposit_group`, `magic_wand_creator`
+ORDER BY `magic_wand_creator`, `deposit_group` ASC;
