@@ -161,7 +161,11 @@ GROUP BY `name`
 HAVING `count` > 4
 ORDER BY `count` DESC, `name` ASC;
 
-
+-- Може да използваме NOT IN + SELECT Вместо JOIN за определена филтрация.
+SELECT CONCAT(`first_name`, " ", `last_name`) AS `full_name`, CONCAT(REVERSE(`last_name`), CHAR_LENGTH(`last_name`), '@cast.com') as `email`, (2022 - YEAR(`birthdate`)) AS `age`, `height`
+FROM `actors`
+WHERE `id` NOT IN (SELECT `actor_id` FROM `movies_actors`)
+ORDER BY `height` asc;
 
 
 
