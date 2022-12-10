@@ -162,10 +162,6 @@ HAVING `count` > 4
 ORDER BY `count` DESC, `name` ASC;
 
 
-SELECT `o`.`table_id`, `t`.`capacity`, SUM() `count_clients`, `availability` FROM `tables` as `t`
-JOIN `orders` as `o` ON `t`.`id` = `o`.`table_id`
-WHERE `floor` = '1'
-
 
 
 
